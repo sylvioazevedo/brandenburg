@@ -1,0 +1,37 @@
+name: SSH security regression tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install uv
+      - run: uv sync --locked
+      - run: uv run --locked python -m unittest discover -s tests -v
+      - run: uv run --locked python -m PyInstaller --noconfirm app.spec
+      - name: Smoke-test Windows package
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $env:BRANDENBURG_TEST_EXECUTABLE = (Resolve-Path .\dist\app\app.exe).Path
+          uv run --locked python -m unittest discover -s tests -p test_package.py -v
+      - name: Smoke-test Linux package
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          export BRANDENBURG_TEST_EXECUTABLE="$(pwd)/dist/app/app"
+          uv run --locked python -m unittest discover -s tests -p test_package.py -v

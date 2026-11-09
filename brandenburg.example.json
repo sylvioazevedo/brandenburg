@@ -1,0 +1,17 @@
+{
+  "administrators": {},
+  "host_key": "ssh-host-key",
+  "log_file": "brandenburg.security.log",
+  "host": "0.0.0.0",
+  "port": 22,
+  "login_timeout": 30,
+  "attempts_per_connection": 3,
+  "failures_per_ip": 5,
+  "failure_window": 900,
+  "block_seconds": 900,
+  "max_pending_connections": 64,
+  "max_ip_entries": 4096,
+  "password_workers": 4,
+  "log_bytes": 5000000,
+  "log_backups": 5
+}

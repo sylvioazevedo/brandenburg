@@ -1,0 +1,18 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# SSH identity and private administrator configuration
+ssh-host-key
+deploy/**/ssh-host-key
+deploy/releases/
+deploy/.sshd-staging-*/
+brandenburg.private.json
+*.security.log*

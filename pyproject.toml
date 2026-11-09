@@ -1,0 +1,11 @@
+[project]
+name = "brandenburg"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "asyncssh>=2.24.0",
+    "bcrypt>=4.2.1",
+    "pyinstaller>=6.11.1",
+]
